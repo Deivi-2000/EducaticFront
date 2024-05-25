@@ -1,8 +1,12 @@
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { MenuLateral } from 'app/componentes/compartido/MenuLateral'
 import { Cabecera } from "app/componentes/compartido/Cabecera";
 import styles from './layout.module.sass'
-const inter = Inter({ subsets: ["latin"] });
+import { Providers } from "./Providers";
+const roboto = Roboto({ 
+  weight: ["100", "300"],
+  subsets: ['latin']
+});
 
 export default function RootLayout({
   children,
@@ -10,8 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es" className={roboto.className}>
       <body className={styles.Body}>
+        <Providers>
         <Cabecera/>
         <div className={styles.Contenedor}>
           <MenuLateral />
@@ -19,6 +24,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+        </Providers>
         </body>
     </html>
   );

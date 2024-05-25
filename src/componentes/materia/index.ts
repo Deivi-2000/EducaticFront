@@ -1,0 +1,1 @@
+export { TablaEvaluaciones } from './TablaEvaluaciones'
