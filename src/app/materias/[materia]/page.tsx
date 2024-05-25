@@ -10,12 +10,6 @@ import { postComentario } from 'app/servicios/comentarios';
 import { getEvaluacionesByModulo } from 'app/servicios/evaluaciones';
 import { TablaEvaluaciones } from 'app/componentes/materia/TablaEvaluaciones';
 
-interface MateriaProps {
-  params: {
-    materia: string
-  }
-}
-
 interface Materia {
 
     idMateria: string,
@@ -99,7 +93,7 @@ export default function Materias(props: any) {
               setEvaluaciones(dataEvaluaciones)
             })
           }
-        )
+        ) 
         
         getComentariosByMateria(materia).then((data) => 
           {
@@ -154,7 +148,7 @@ export default function Materias(props: any) {
       }
       {
         (evaluaciones != null && evaluaciones.length > 0) ? 
-        <TablaEvaluaciones params={evaluaciones} />
+        <TablaEvaluaciones params={evaluaciones} idUsuario={session?.user?.email!} />
       :null
       }
       </div>{

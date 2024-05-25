@@ -16,7 +16,7 @@ interface Usuario {
 function obtenerFechaActual() {
   const ahora = new Date();
   const dia = String(ahora.getDate()).padStart(2, '0');
-  const mes = String(ahora.getMonth() + 1).padStart(2, '0'); // Los meses van de 0-11
+  const mes = String(ahora.getMonth() + 1).padStart(2, '0');
   const anio = ahora.getFullYear();
   return `${dia}/${mes}/${anio}`;
 }
@@ -28,7 +28,6 @@ export const Cabecera = () => {
   const fechaFormateada = obtenerFechaActual();
 
   useEffect(() => {
-    console.log(session)
     if (status === 'authenticated' && session.user?.email != null) {
       getUsuarioById(session.user.email).then((data) => {
         if (data == null) {

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import styles from './Materia.module.sass'
 import Image from 'next/image'
+import { postMatricula } from 'app/servicios/matriculas'
 
 
 interface MateriaProps {
@@ -11,12 +12,15 @@ interface MateriaProps {
     fechaCreacion: string,
     fechaActualizado: string,
     rutaImagen: string,
-  }
+  },
+  idUsuario: string | null
 }
 
 export const Materia = (props: MateriaProps) => {
   
+
   const materia = props
+  const idUsuario = props.idUsuario
   return (
     <section className={styles.Materia}>
       <Image 
@@ -32,7 +36,14 @@ export const Materia = (props: MateriaProps) => {
         <p>Código: {materia.params.idMateria}</p>
         <div>
           <Link href={"/materias/" + materia.params.idMateria}><button className={styles.ButtonVer}>VER CONTENIDO</button></Link>
-          <button className={styles.ButtonInscribirse}>INSCRIBIRSE</button>
+          {
+            idUsuario != null ?
+            <button className={styles.ButtonInscribirse} onClick={() => {
+              postMatricula({"id":{"ID_USUARIO": idUsuario, "ID_MATERIA": materia.params.idMateria}, "SEMESTRE": "2024-1", "ESTADO": "En curso"})
+            }}>INSCRIBIRSE</button>
+            : null
+          }
+          
         </div>
       </div>
     </section>

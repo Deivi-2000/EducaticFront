@@ -1,5 +1,4 @@
 
-
 export const apiUrls = {
 
     novedades: {
@@ -20,10 +19,18 @@ export const apiUrls = {
     },
     modulos: {
         'getEvaluaciones': 'http://localhost:8080/modulo/'
+    },
+    matriculas: {
+        'postMatricula': 'http://localhost:8080/matricula/set',
+        'getMateriasByUsuario': 'http://localhost:8080/matricula/getMateriasByIdUsuario/'
+    },
+    evaluaciones: {
+        'getById': 'http://localhost:8080/evaluacion/getById/',
+        'getPreguntas': 'http://localhost:8080/evaluacion/',
+    },
+    calificaciones: {
+        'postCalificacion': 'http://localhost:8080/calificacion/set',
+        'getByUsuarioAndEvaluacion': 'http://localhost:8080/calificacion/getCalificacionByUsuarioAndEvaluacion/'
     }
-
-
-    
-
 
 }

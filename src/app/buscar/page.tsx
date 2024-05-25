@@ -2,6 +2,7 @@
 import styles from './materias.module.sass'
 import { Materia } from 'app/componentes/inicio/materia';
 import { getMaterias, getModulosByMateria } from 'app/servicios/materias';
+import { getMateriasByIdUsuario } from 'app/servicios/matriculas';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
@@ -14,17 +15,17 @@ interface Materia {
   rutaImagen: string,
 }
 
-export default function Materias() {
-  
+export default function BuscarMaterias() {
+  const { data: session } = useSession();
   const [materias, setMaterias] = useState<Materia[]>()
   useEffect(() => {
-    getMaterias().then((dataMateria: Materia[]) => 
+    getMateriasByIdUsuario(session?.user?.email!).then((dataMateria: Materia[]) => 
       {
         setMaterias(dataMateria) 
       }
     )
   }, []);
-  const { data: session } = useSession();
+  
 
   return (
     <main className={styles.Main}>

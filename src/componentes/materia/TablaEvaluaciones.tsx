@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import styles from './TablaEvaluaciones.module.sass'
+import { useEffect, useState } from 'react'
+import { getCalificacionesByUsuarioAndEvaluacion } from 'app/servicios/calificaciones'
 
 interface Evaluaciones {
-    params:  Evaluacion[]
+    params:  Evaluacion[],
+    idUsuario: string | null
 }
 
 interface Evaluacion {
@@ -14,9 +17,25 @@ interface Evaluacion {
     puntajeMaximo: number,
     fechaCreacion: string
     fechaActualizado: string
+    nota: number | null
 }
 
 export const TablaEvaluaciones = (props: Evaluaciones) => {
+
+    const [isLoading, setLoading] = useState(false)
+    useEffect(() => {
+        evaluaciones.map((item) => {
+            if (props.idUsuario != null) {
+                getCalificacionesByUsuarioAndEvaluacion(props.idUsuario, item.idEvaluacion).then((dataCalificacion) => {
+                    
+                    item.nota = dataCalificacion.NOTA
+                })
+                
+            }
+            
+        })
+        setLoading(false)
+    })
 
     const evaluaciones = props.params
     return (
@@ -26,6 +45,7 @@ export const TablaEvaluaciones = (props: Evaluaciones) => {
                 <td className={styles.Td}>Nombre</td>
                 <td className={styles.Td}>Dificultad</td>
                 <td className={styles.Td}>Puntaje Máximo</td>
+                <td className={styles.Td}>Nota</td>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +54,7 @@ export const TablaEvaluaciones = (props: Evaluaciones) => {
                         <td className={styles.Td}>{item.nombre}</td>
                         <td className={styles.Td}>{item.dificultad}</td>
                         <td className={styles.Td}>{item.puntajeMaximo}</td>
+                        <td className={styles.Td}>{(item.nota != null) ? item.nota: "Sin realizar"}</td>
                         <td className={styles.Td}>
                         <Link href={"/evaluacion/" + item.idEvaluacion}><button className={styles.ButtonPresentar}>PRESENTAR EVALUACIÓN</button></Link>
                         </td>
