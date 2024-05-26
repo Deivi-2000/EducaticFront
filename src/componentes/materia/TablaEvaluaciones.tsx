@@ -29,6 +29,7 @@ export const TablaEvaluaciones = (props: Evaluaciones) => {
                 getCalificacionesByUsuarioAndEvaluacion(props.idUsuario, item.idEvaluacion).then((dataCalificacion) => {
                     
                     item.nota = dataCalificacion.NOTA
+                    setLoading(true)
                 })
                 
             }

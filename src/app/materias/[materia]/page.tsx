@@ -2,7 +2,7 @@
 import styles from './materia.module.sass'
 import { Materia } from 'app/componentes/inicio/materia';
 import { getMateriaById, getComentariosByMateria, getModulosByMateria } from 'app/servicios/materias';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { getUsuarioById } from 'app/servicios/usuarios';
 import { useSession } from 'next-auth/react';
@@ -50,6 +50,7 @@ interface Evaluacion {
   puntajeMaximo: number,
   fechaCreacion: string
   fechaActualizado: string
+  nota: number
 }
 
 function obtenerFechaActual() {
@@ -78,6 +79,7 @@ export default function Materias(props: any) {
   const [comentarios, setComentarios] = useState<Comentario[]>()
   const [evaluaciones, setEvaluaciones] = useState<Evaluacion[]>()
   const [comentarioText, setComentarioText] = useState('')
+  const [countComentarios, setCountComentarios] = useState(0)
   
   useEffect(() => {
     getMateriaById(materia).then((dataMateria) => 
@@ -183,6 +185,7 @@ export default function Materias(props: any) {
                     "TEXTO": comentarioText,
                     "FECHA_CREACION": obtenerFechaActual(),
                     "HORA_CREACION": obtenerHoraActual()})
+                    setCountComentarios(countComentarios + 1)
                 }
               }>Enviar Pregunta</button>
             </div>
