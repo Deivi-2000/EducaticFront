@@ -23,3 +23,18 @@ export const postComentario = async (comentario: Comentario) => {
     }
 
 }
+
+export const deleteComentario = async (idComentario: number) => {
+
+    try{
+        const response = await fetch(apiUrls.comentarios.deleteComentario + idComentario,
+            {cache: 'no-cache',
+            method: "DELETE",
+            }
+        );
+        return response;
+    }catch(error) {
+        console.log(error);
+    }
+
+}

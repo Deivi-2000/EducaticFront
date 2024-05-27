@@ -6,7 +6,7 @@ import { use, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { getUsuarioById } from 'app/servicios/usuarios';
 import { useSession } from 'next-auth/react';
-import { postComentario } from 'app/servicios/comentarios';
+import { deleteComentario, postComentario } from 'app/servicios/comentarios';
 import { getEvaluacionesByModulo } from 'app/servicios/evaluaciones';
 import { TablaEvaluaciones } from 'app/componentes/materia/TablaEvaluaciones';
 
@@ -162,11 +162,21 @@ export default function Materias(props: any) {
               <h1 className={styles.ComentariosTitulo}>Dudas e inquietudes</h1>
               <div className={styles.ListaComentarios}>
           {
-          comentarios!.map((comentario: Comentario) => (
+          comentarios?.map((comentario: Comentario) => (
               <div className={styles.Comentario}
-              key={comentario.idComentario} >
-                <p className={styles.Nombre}>{comentario.nombre}</p>
+              key={comentario.idComentario}>
+                <div className={styles.CabeceraComentario}>
+                <p className={styles.Nombre}>{comentario.nombre}</p>    
+                </div>
                 <p className={styles.Texto}>{comentario.TEXTO}</p>
+                {
+                  comentario.ID_USUARIO == session.user?.email ? 
+                  <button className={styles.Eliminar} onClick={() => {
+                    deleteComentario((comentario.idComentario))
+                    setComentarios(comentarios?.filter(comment => comment.idComentario !== comentario.idComentario))
+                  }
+                  }>Eliminar</button>: null
+                }
               </div>
             ))
           } 
@@ -180,12 +190,21 @@ export default function Materias(props: any) {
               className={styles.InputText}/>
               <button className={styles.ButtonComentario} onClick={
                 () => {
+                  const nuevoComentario: Comentario = {
+                    idComentario: Date.now(), // Asigna un ID temporal
+                    ID_USUARIO: session!.user!.email!,
+                    ID_MATERIA: materia,
+                    TEXTO: comentarioText,
+                    FECHA_CREACION: obtenerFechaActual(),
+                    HORA_CREACION: obtenerHoraActual(),
+                    nombre: session!.user!.name!,
+                }
+                setComentarios([...comentarios!, nuevoComentario])
                   postComentario({"ID_USUARIO": session!.user!.email!,
                     "ID_MATERIA": materia,
                     "TEXTO": comentarioText,
                     "FECHA_CREACION": obtenerFechaActual(),
                     "HORA_CREACION": obtenerHoraActual()})
-                    setCountComentarios(countComentarios + 1)
                 }
               }>Enviar Pregunta</button>
             </div>

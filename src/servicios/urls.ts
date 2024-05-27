@@ -15,7 +15,8 @@ export const apiUrls = {
         'getModulos': 'http://localhost:8080/materia/'
     },
     comentarios: {
-        'postComentario': 'http://localhost:8080/comentario/set'
+        'postComentario': 'http://localhost:8080/comentario/set',
+        'deleteComentario': 'http://localhost:8080/comentario/delete/'
     },
     modulos: {
         'getEvaluaciones': 'http://localhost:8080/modulo/'
