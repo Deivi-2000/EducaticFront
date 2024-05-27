@@ -5,10 +5,12 @@ import { getCalificacionesByUsuarioAndEvaluacion } from 'app/servicios/calificac
 
 interface Evaluaciones {
     params:  Evaluacion[],
-    idUsuario: string | null
+    idUsuario: string | null,
+    idMateria: string | null
 }
 
 interface Evaluacion {
+    idMateria: string,
     idEvaluacion: number,
     idModulo: string,
     dificultad: string,
@@ -21,6 +23,7 @@ interface Evaluacion {
 }
 
 export const TablaEvaluaciones = (props: Evaluaciones) => {
+    console.log(props.idMateria)
 
     const [isLoading, setLoading] = useState(false)
     useEffect(() => {
@@ -57,7 +60,7 @@ export const TablaEvaluaciones = (props: Evaluaciones) => {
                         <td className={styles.Td}>{item.puntajeMaximo}</td>
                         <td className={styles.Td}>{(item.nota != null) ? item.nota: "Sin realizar"}</td>
                         <td className={styles.Td}>
-                        <Link href={"/evaluacion/" + item.idEvaluacion}><button className={styles.ButtonPresentar}>PRESENTAR EVALUACIÓN</button></Link>
+                        <Link href={"/evaluacion/" + item.idEvaluacion + "?idMateria=" + props.idMateria}><button className={styles.ButtonPresentar}>PRESENTAR EVALUACIÓN</button></Link>
                         </td>
                     </tr>
                 ))}

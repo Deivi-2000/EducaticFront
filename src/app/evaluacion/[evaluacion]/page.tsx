@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Pregunta } from 'app/componentes/evaluacion';
 import { postCalificacion } from 'app/servicios/calificaciones';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 
 interface Evaluacion {
@@ -34,6 +35,7 @@ interface Pregunta {
 export default function Evaluaciones(props: any) {
     const { data: session } = useSession();
     const idEvaluacion = props.params.evaluacion;
+    const idMateria = props.searchParams.idMateria;
     const [isLoading, setLoading] = useState(true)
     const [evaluacion, setEvaluacion] = useState<Evaluacion>()
     const [preguntas, setPreguntas] = useState<Pregunta[]>()
@@ -87,7 +89,7 @@ export default function Evaluaciones(props: any) {
                                 ))}
 
                             </form>
-                            <button onClick={handleSubmit}>Enviar</button>
+                            <button onClick={handleSubmit}><Link href={"/materias/"+idMateria!}>Enviar</Link></button>
                             {puntaje !== null && <p>Tu calificación es: {puntaje}</p>}
                         </div>
                     </div>

@@ -43,6 +43,7 @@ interface Comentario {
 
 interface Evaluacion {
   idEvaluacion: number,
+  idMateria: string,
   idModulo: string,
   dificultad: string,
   nombre: string,
@@ -92,6 +93,7 @@ export default function Materias(props: any) {
             setSelectedModulo(dataModulos[0])
 
             getEvaluacionesByModulo(dataModulos[0].idModulo).then((dataEvaluaciones) => {
+              dataEvaluaciones.idMateria = materia
               setEvaluaciones(dataEvaluaciones)
             })
           }
@@ -150,7 +152,7 @@ export default function Materias(props: any) {
       }
       {
         (evaluaciones != null && evaluaciones.length > 0) ? 
-        <TablaEvaluaciones params={evaluaciones} idUsuario={session?.user?.email!} />
+        <TablaEvaluaciones params={evaluaciones} idUsuario={session?.user?.email!} idMateria={selectedMateria!.idMateria} />
       :null
       }
       </div>{
