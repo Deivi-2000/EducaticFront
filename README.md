@@ -19,10 +19,12 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
  
  
    1.Clonar el Repositorio: Abre la terminal cmd del equipo y especifica directorio donde deseas clonar el repositorio. 
+   
 Por ejemplo:   cd C:\Users\Usuario\Documents   
 
 
 Por último, clona el repositorio desde GitHub usando el siguiente comando:
+     
      git clone https://github.com/Deivi-2000/EducaticFront.git
 
    2.Descargar en Formato ZIP:
