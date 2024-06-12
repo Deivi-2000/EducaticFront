@@ -78,6 +78,7 @@ export default function Evaluaciones(props: any) {
                     <div className={styles.Modulos}>
                         <div>
                             <h1>Examen</h1>
+                            <h3>{evaluacion?.contenido}</h3>
                             <form>
                                 {preguntas!.map((q) => (
                                     <Pregunta
