@@ -143,7 +143,7 @@ export default function Materias(props: any) {
         <Image 
           layout='intrinsic'
           height={0}
-          width={600}
+          width={1000}
           src={"/imagenes/modulo/" + selectedModulo.rutaImagen}
           alt={selectedModulo.idModulo}
           priority={false}
