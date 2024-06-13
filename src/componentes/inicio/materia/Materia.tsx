@@ -33,6 +33,7 @@ export const Materia = (props: MateriaProps) => {
       />
       <div className={styles.Bottom}>
         <h2 className={styles.Titulo}>{materia.params.nombre}</h2>
+        <p>{materia.params.descripcion}</p>
         <p>Código: {materia.params.idMateria}</p>
         <div>
           <Link href={"/materias/" + materia.params.idMateria}><button className={styles.ButtonVer}>VER CONTENIDO</button></Link>

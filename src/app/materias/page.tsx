@@ -29,6 +29,7 @@ export default function Materias() {
   return (
     <main className={styles.Main}>
       <div className={styles.GridMaterias}>
+     
       {
       materias?.map((materia: Materia) => (
         <Materia key={materia.idMateria} params={materia} idUsuario={(session?.user?.email) ?? null}/>
